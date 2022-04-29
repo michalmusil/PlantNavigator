@@ -9,10 +9,14 @@ namespace PlantNavigator.API.Controllers
     [Route("api/plants")]
     public class PlantsController : ControllerBase
     {
-
         private PlantsDataStore dataStore = PlantsDataStore.getDataStore();
 
+        private readonly ILogger<PlantsController> logger;
 
+        public PlantsController(ILogger<PlantsController> logger)
+        {
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
 
         [HttpGet(Name = "GetPlants")]
         public ActionResult<IEnumerable<PlantDto>> GetPlants()
@@ -38,6 +42,7 @@ namespace PlantNavigator.API.Controllers
         {
             if (!ModelState.IsValid)
             {
+                logger.LogInformation("Posted plant does not comply with the data restrictions");
                 return BadRequest();
             }
 
@@ -88,6 +93,7 @@ namespace PlantNavigator.API.Controllers
                 return NotFound();
             }
 
+            logger.LogInformation($"Plant with id: {foundPlant.Id} has been deleted");
             //ADJUSTTHIS AFTER IMPLEMENTING DB
             var tempList = this.dataStore.DummyData.ToList();
             tempList.Remove(foundPlant);
