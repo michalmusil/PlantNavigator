@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen();
 //builder.Services.AddScoped<ISomeInterface, ImplementationOfInterface>();
 //builder.Services.AddSingleton<ISomeInterface, ImplementationOfInterface>();
 
-// Adding Entity Framework reference
+// Adding Entity Framework reference to work with SQLEXPRESS from connection string in appsettings.json
 builder.Services.AddDbContext<PlantNavigatorContext>(options => 
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

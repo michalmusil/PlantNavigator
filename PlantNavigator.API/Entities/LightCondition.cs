@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PlantNavigator.API.Entities
 {
-    public class LightCondition : IDatabaseIdentifiable
+    public class LightCondition : BaseEntity
     {
-        public int Id { get; set; }
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
