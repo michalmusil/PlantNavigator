@@ -1,8 +1,10 @@
 ﻿using PlantNavigator.API.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PlantNavigator.API.Entities
 {
+    [Table("WaterConditions")]
     public class WaterCondition : BaseEntity
     {
         [Required]
