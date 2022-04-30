@@ -11,6 +11,18 @@ namespace PlantNavigator.API.DbContexts
         public DbSet<LightCondition> LightConditions { get; set; } = null!;
         public DbSet<Soil> Soils { get; set; } = null!;
         public DbSet<Plant_Soil> Plants_Soils { get; set; } = null!;
+        public DbSet<Pest> Pests { get; set; } = null!;
+        public DbSet<Plant_Pest> Plants_Pests { get; set; } = null!;
+        public DbSet<Disease> Diseases { get; set; } = null!;
+        public DbSet<Plant_Disease> Plants_Diseases { get; set; } = null!;
+        public DbSet<WateringHabit> WateringHabits { get; set; } = null!;
+        public DbSet<Plant_WateringHabit> Plants_WateringHabits { get; set; } = null!;
+        public DbSet<FertilizingHabit> FertilizingHabits { get; set; } = null!;
+        public DbSet<Plant_FertilizingHabit> Plants_FertilizingHabits { get; set; } = null!;
+        public DbSet<FertilizerType> FertilizerTypes { get; set; } = null!;
+        public DbSet<FertilizingHabit_FertilizerType> FertilizingHabits_FertilizerTypes { get; set; } = null!;
+        public DbSet<Classification> Classifications { get; set; } = null!;
+        public DbSet<Plant_Classification> Plants_Classifications { get; set; } = null!;
 
         public PlantNavigatorContext(DbContextOptions<PlantNavigatorContext> options) 
             : base(options) { 

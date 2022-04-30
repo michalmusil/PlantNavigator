@@ -1,4 +1,5 @@
-﻿using PlantNavigator.API.Entities.JoinEntities;
+﻿using PlantNavigator.API.Entities.Enums;
+using PlantNavigator.API.Entities.JoinEntities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,8 +12,8 @@ namespace PlantNavigator.API.Entities
         [MaxLength(200)]
         public string Name { get; set; }
         public string? Description { get; set; }
-        public DateTime? FloweringFrom { get; set; }
-        public DateTime? FloweringTo { get; set; }
+        public Month? FloweringFrom { get; set; }
+        public Month? FloweringTo { get; set; }
         public bool? MistingAppropriate { get; set; }
 
         public WaterCondition? WaterCondition { get; set; } 

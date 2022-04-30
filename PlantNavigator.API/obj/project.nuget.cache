@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "CR8hJ1Kn0qWVlMGwKT5+nk+cvLe6xWQAQY9y6Mr8JbVFg0v9Qe5SSqvRyS5Dks58DV+/peBLnf6I5mkUG1BL8Q==",
+  "dgSpecHash": "SnOe8kTq9WR3NIYvDuY2hdoKugEXvUeL9LvYYDkLPVOJe9Vw2jMfDa/3ZIR/W4zANhIQJh4TTmPjW8+R4RPnng==",
   "success": true,
   "projectFilePath": "C:\\Users\\musil\\OneDrive\\Plocha\\MENDELU\\Bakalarka\\PlantNavigator\\PlantNavigator.API\\PlantNavigator.API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\musil\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
+    "C:\\Users\\musil\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "C:\\Users\\musil\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
-    "C:\\Users\\musil\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\musil\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\musil\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\musil\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\musil\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.4\\microsoft.entityframeworkcore.6.0.4.nupkg.sha512",

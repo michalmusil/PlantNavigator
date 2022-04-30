@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PlantNavigator.API.DbContexts;
+using PlantNavigator.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +24,33 @@ builder.Services.AddDbContext<PlantNavigatorContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+
+// Adding Auto Mapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+// CUSTOM DI FOR REPOSITORIES ETC.
+builder.Services.AddScoped<PlantsRepository, PlantsRepository>();
+
+
+
+
+
+
+
+
+
+
 var app = builder.Build();
+
+
+
+
+
+
+
+
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PlantNavigator.API.Models;
-using PlantNavigator.API.Models.Post;
-using PlantNavigator.API.Models.Put;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using PlantNavigator.API.Models.DTOs.Get;
+using PlantNavigator.API.Repositories;
 
 namespace PlantNavigator.API.Controllers
 {
@@ -9,23 +9,36 @@ namespace PlantNavigator.API.Controllers
     [Route("api/plants")]
     public class PlantsController : ControllerBase
     {
-        private PlantsDataStore dataStore = PlantsDataStore.getDataStore();
-
+        private readonly IMapper mapper;
         private readonly ILogger<PlantsController> logger;
+        private readonly PlantsRepository plantsRepository;
 
-        public PlantsController(ILogger<PlantsController> logger)
+        public PlantsController(ILogger<PlantsController> logger, PlantsRepository plantsRepository, IMapper mapper)
         {
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.logger = logger ?? 
+                throw new ArgumentNullException(nameof(logger));
+
+            this.plantsRepository = plantsRepository ?? 
+                throw new ArgumentNullException(nameof(plantsRepository));
+
+            this.mapper = mapper ??
+                throw new ArgumentNullException(nameof(mapper));
         }
+
+
+
+
+
 
         [HttpGet(Name = "GetPlants")]
-        public ActionResult<IEnumerable<PlantDto>> GetPlants()
+        public async Task<ActionResult<IEnumerable<PlantGetDto>>> GetPlants()
         {
-            return Ok(this.dataStore.DummyData);
+            var plants = await plantsRepository.GetAll();
+            return Ok(mapper.Map<IEnumerable<PlantGetDto>>(plants));
         }
-
+        /*
         [HttpGet("{id}", Name = "GetPlantById")]
-        public ActionResult<PlantDto> GetPlant(int id)
+        public ActionResult<PlantGetDto> GetPlant(int id)
         {
             var plant = this.dataStore.DummyData.FirstOrDefault((plant) => plant.Id == id);
 
@@ -38,7 +51,7 @@ namespace PlantNavigator.API.Controllers
         }
 
         [HttpPost(Name = "PostPlant")]
-        public ActionResult<PlantDto> AddPlant(PlantPostDto plant)
+        public ActionResult<PlantGetDto> AddPlant(PlantPostDto plant)
         {
             if (!ModelState.IsValid)
             {
@@ -48,7 +61,7 @@ namespace PlantNavigator.API.Controllers
 
             int newPlantID = this.dataStore.DummyData.Max(p => p.Id);
 
-            var newPlant = new PlantDto()
+            var newPlant = new PlantGetDto()
             {
                 Id = ++newPlantID,
                 Species = plant.Species,
@@ -101,5 +114,6 @@ namespace PlantNavigator.API.Controllers
 
             return NoContent();
         }
+        */
     }
 }

@@ -1,11 +1,10 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace PlantNavigator.API.Migrations
 {
-    public partial class AllEntitiesButPicturesImplemented : Migration
+    public partial class DatabaseStructureCompletedWithoutPictures : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,16 +26,16 @@ namespace PlantNavigator.API.Migrations
                 type: "nvarchar(max)",
                 nullable: true);
 
-            migrationBuilder.AddColumn<DateTime>(
+            migrationBuilder.AddColumn<int>(
                 name: "FloweringFrom",
                 table: "Plants",
-                type: "datetime2",
+                type: "int",
                 nullable: true);
 
-            migrationBuilder.AddColumn<DateTime>(
+            migrationBuilder.AddColumn<int>(
                 name: "FloweringTo",
                 table: "Plants",
-                type: "datetime2",
+                type: "int",
                 nullable: true);
 
             migrationBuilder.AddColumn<int>(
@@ -52,7 +51,7 @@ namespace PlantNavigator.API.Migrations
                 nullable: true);
 
             migrationBuilder.CreateTable(
-                name: "Classification",
+                name: "Classifications",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -63,11 +62,11 @@ namespace PlantNavigator.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Classification", x => x.Id);
+                    table.PrimaryKey("PK_Classifications", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Disease",
+                name: "Diseases",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -77,11 +76,11 @@ namespace PlantNavigator.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Disease", x => x.Id);
+                    table.PrimaryKey("PK_Diseases", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "FertilizerType",
+                name: "FertilizerTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -91,27 +90,27 @@ namespace PlantNavigator.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FertilizerType", x => x.Id);
+                    table.PrimaryKey("PK_FertilizerTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "FertilizingHabit",
+                name: "FertilizingHabits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DaysFrequency = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TimeFrom = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    TimeTo = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    TimeFrom = table.Column<int>(type: "int", nullable: true),
+                    TimeTo = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FertilizingHabit", x => x.Id);
+                    table.PrimaryKey("PK_FertilizingHabits", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pest",
+                name: "Pests",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -121,27 +120,27 @@ namespace PlantNavigator.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pest", x => x.Id);
+                    table.PrimaryKey("PK_Pests", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "WateringHabit",
+                name: "WateringHabits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DaysFrequency = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TimeFrom = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    TimeTo = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    TimeFrom = table.Column<int>(type: "int", nullable: true),
+                    TimeTo = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WateringHabit", x => x.Id);
+                    table.PrimaryKey("PK_WateringHabits", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Plant_Classification",
+                name: "Plants_Classifications",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -151,15 +150,15 @@ namespace PlantNavigator.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Plant_Classification", x => x.Id);
+                    table.PrimaryKey("PK_Plants_Classifications", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Plant_Classification_Classification_ClassificationId",
+                        name: "FK_Plants_Classifications_Classifications_ClassificationId",
                         column: x => x.ClassificationId,
-                        principalTable: "Classification",
+                        principalTable: "Classifications",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Plant_Classification_Plants_PlantId",
+                        name: "FK_Plants_Classifications_Plants_PlantId",
                         column: x => x.PlantId,
                         principalTable: "Plants",
                         principalColumn: "Id",
@@ -167,26 +166,26 @@ namespace PlantNavigator.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Plant_Disease",
+                name: "Plants_Diseases",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Condition = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Condition = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PlantId = table.Column<int>(type: "int", nullable: false),
                     DiseaseId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Plant_Disease", x => x.Id);
+                    table.PrimaryKey("PK_Plants_Diseases", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Plant_Disease_Disease_DiseaseId",
+                        name: "FK_Plants_Diseases_Diseases_DiseaseId",
                         column: x => x.DiseaseId,
-                        principalTable: "Disease",
+                        principalTable: "Diseases",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Plant_Disease_Plants_PlantId",
+                        name: "FK_Plants_Diseases_Plants_PlantId",
                         column: x => x.PlantId,
                         principalTable: "Plants",
                         principalColumn: "Id",
@@ -194,7 +193,7 @@ namespace PlantNavigator.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FertilizingHabit_FertilizerType",
+                name: "FertilizingHabits_FertilizerTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -204,23 +203,23 @@ namespace PlantNavigator.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FertilizingHabit_FertilizerType", x => x.Id);
+                    table.PrimaryKey("PK_FertilizingHabits_FertilizerTypes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FertilizingHabit_FertilizerType_FertilizerType_FertilizerTypeId",
+                        name: "FK_FertilizingHabits_FertilizerTypes_FertilizerTypes_FertilizerTypeId",
                         column: x => x.FertilizerTypeId,
-                        principalTable: "FertilizerType",
+                        principalTable: "FertilizerTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FertilizingHabit_FertilizerType_FertilizingHabit_FertilizingHabitId",
+                        name: "FK_FertilizingHabits_FertilizerTypes_FertilizingHabits_FertilizingHabitId",
                         column: x => x.FertilizingHabitId,
-                        principalTable: "FertilizingHabit",
+                        principalTable: "FertilizingHabits",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Plant_FertilizingHabit",
+                name: "Plants_FertilizingHabits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -231,15 +230,15 @@ namespace PlantNavigator.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Plant_FertilizingHabit", x => x.Id);
+                    table.PrimaryKey("PK_Plants_FertilizingHabits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Plant_FertilizingHabit_FertilizingHabit_FertilizingHabitId",
+                        name: "FK_Plants_FertilizingHabits_FertilizingHabits_FertilizingHabitId",
                         column: x => x.FertilizingHabitId,
-                        principalTable: "FertilizingHabit",
+                        principalTable: "FertilizingHabits",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Plant_FertilizingHabit_Plants_PlantId",
+                        name: "FK_Plants_FertilizingHabits_Plants_PlantId",
                         column: x => x.PlantId,
                         principalTable: "Plants",
                         principalColumn: "Id",
@@ -247,7 +246,7 @@ namespace PlantNavigator.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Plant_Pest",
+                name: "Plants_Pests",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -258,15 +257,15 @@ namespace PlantNavigator.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Plant_Pest", x => x.Id);
+                    table.PrimaryKey("PK_Plants_Pests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Plant_Pest_Pest_PestId",
+                        name: "FK_Plants_Pests_Pests_PestId",
                         column: x => x.PestId,
-                        principalTable: "Pest",
+                        principalTable: "Pests",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Plant_Pest_Plants_PlantId",
+                        name: "FK_Plants_Pests_Plants_PlantId",
                         column: x => x.PlantId,
                         principalTable: "Plants",
                         principalColumn: "Id",
@@ -274,7 +273,7 @@ namespace PlantNavigator.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Plant_WateringHabit",
+                name: "Plants_WateringHabits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -285,17 +284,17 @@ namespace PlantNavigator.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Plant_WateringHabit", x => x.Id);
+                    table.PrimaryKey("PK_Plants_WateringHabits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Plant_WateringHabit_Plants_PlantId",
+                        name: "FK_Plants_WateringHabits_Plants_PlantId",
                         column: x => x.PlantId,
                         principalTable: "Plants",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Plant_WateringHabit_WateringHabit_WateringHabitId",
+                        name: "FK_Plants_WateringHabits_WateringHabits_WateringHabitId",
                         column: x => x.WateringHabitId,
-                        principalTable: "WateringHabit",
+                        principalTable: "WateringHabits",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -306,63 +305,63 @@ namespace PlantNavigator.API.Migrations
                 column: "LightConditionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FertilizingHabit_FertilizerType_FertilizerTypeId",
-                table: "FertilizingHabit_FertilizerType",
+                name: "IX_FertilizingHabits_FertilizerTypes_FertilizerTypeId",
+                table: "FertilizingHabits_FertilizerTypes",
                 column: "FertilizerTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FertilizingHabit_FertilizerType_FertilizingHabitId",
-                table: "FertilizingHabit_FertilizerType",
+                name: "IX_FertilizingHabits_FertilizerTypes_FertilizingHabitId",
+                table: "FertilizingHabits_FertilizerTypes",
                 column: "FertilizingHabitId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Plant_Classification_ClassificationId",
-                table: "Plant_Classification",
+                name: "IX_Plants_Classifications_ClassificationId",
+                table: "Plants_Classifications",
                 column: "ClassificationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Plant_Classification_PlantId",
-                table: "Plant_Classification",
+                name: "IX_Plants_Classifications_PlantId",
+                table: "Plants_Classifications",
                 column: "PlantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Plant_Disease_DiseaseId",
-                table: "Plant_Disease",
+                name: "IX_Plants_Diseases_DiseaseId",
+                table: "Plants_Diseases",
                 column: "DiseaseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Plant_Disease_PlantId",
-                table: "Plant_Disease",
+                name: "IX_Plants_Diseases_PlantId",
+                table: "Plants_Diseases",
                 column: "PlantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Plant_FertilizingHabit_FertilizingHabitId",
-                table: "Plant_FertilizingHabit",
+                name: "IX_Plants_FertilizingHabits_FertilizingHabitId",
+                table: "Plants_FertilizingHabits",
                 column: "FertilizingHabitId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Plant_FertilizingHabit_PlantId",
-                table: "Plant_FertilizingHabit",
+                name: "IX_Plants_FertilizingHabits_PlantId",
+                table: "Plants_FertilizingHabits",
                 column: "PlantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Plant_Pest_PestId",
-                table: "Plant_Pest",
+                name: "IX_Plants_Pests_PestId",
+                table: "Plants_Pests",
                 column: "PestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Plant_Pest_PlantId",
-                table: "Plant_Pest",
+                name: "IX_Plants_Pests_PlantId",
+                table: "Plants_Pests",
                 column: "PlantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Plant_WateringHabit_PlantId",
-                table: "Plant_WateringHabit",
+                name: "IX_Plants_WateringHabits_PlantId",
+                table: "Plants_WateringHabits",
                 column: "PlantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Plant_WateringHabit_WateringHabitId",
-                table: "Plant_WateringHabit",
+                name: "IX_Plants_WateringHabits_WateringHabitId",
+                table: "Plants_WateringHabits",
                 column: "WateringHabitId");
 
             migrationBuilder.AddForeignKey(
@@ -391,40 +390,40 @@ namespace PlantNavigator.API.Migrations
                 table: "Plants");
 
             migrationBuilder.DropTable(
-                name: "FertilizingHabit_FertilizerType");
+                name: "FertilizingHabits_FertilizerTypes");
 
             migrationBuilder.DropTable(
-                name: "Plant_Classification");
+                name: "Plants_Classifications");
 
             migrationBuilder.DropTable(
-                name: "Plant_Disease");
+                name: "Plants_Diseases");
 
             migrationBuilder.DropTable(
-                name: "Plant_FertilizingHabit");
+                name: "Plants_FertilizingHabits");
 
             migrationBuilder.DropTable(
-                name: "Plant_Pest");
+                name: "Plants_Pests");
 
             migrationBuilder.DropTable(
-                name: "Plant_WateringHabit");
+                name: "Plants_WateringHabits");
 
             migrationBuilder.DropTable(
-                name: "FertilizerType");
+                name: "FertilizerTypes");
 
             migrationBuilder.DropTable(
-                name: "Classification");
+                name: "Classifications");
 
             migrationBuilder.DropTable(
-                name: "Disease");
+                name: "Diseases");
 
             migrationBuilder.DropTable(
-                name: "FertilizingHabit");
+                name: "FertilizingHabits");
 
             migrationBuilder.DropTable(
-                name: "Pest");
+                name: "Pests");
 
             migrationBuilder.DropTable(
-                name: "WateringHabit");
+                name: "WateringHabits");
 
             migrationBuilder.DropIndex(
                 name: "IX_Plants_LightConditionId",

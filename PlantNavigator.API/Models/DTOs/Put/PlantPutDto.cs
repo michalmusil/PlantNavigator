@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PlantNavigator.API.Models.Post
+namespace PlantNavigator.API.Models.DTOs.Put
 {
-    public class PlantPostDto
+    public class PlantPutDto
     {
-        [Required]
         [MaxLength(200)]
-        public string Species { get; set; }
+        public string? Species { get; set; }
         [MaxLength(1000)]
         public string? Description { get; set; }
     }

@@ -12,8 +12,8 @@ using PlantNavigator.API.DbContexts;
 namespace PlantNavigator.API.Migrations
 {
     [DbContext(typeof(PlantNavigatorContext))]
-    [Migration("20220430155807_AllEntitiesButPicturesImplemented")]
-    partial class AllEntitiesButPicturesImplemented
+    [Migration("20220430213704_DatabaseStructureCompletedWithoutPictures")]
+    partial class DatabaseStructureCompletedWithoutPictures
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,7 +45,7 @@ namespace PlantNavigator.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Classification");
+                    b.ToTable("Classifications");
                 });
 
             modelBuilder.Entity("PlantNavigator.API.Entities.Disease", b =>
@@ -66,7 +66,7 @@ namespace PlantNavigator.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Disease");
+                    b.ToTable("Diseases");
                 });
 
             modelBuilder.Entity("PlantNavigator.API.Entities.FertilizerType", b =>
@@ -87,7 +87,7 @@ namespace PlantNavigator.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FertilizerType");
+                    b.ToTable("FertilizerTypes");
                 });
 
             modelBuilder.Entity("PlantNavigator.API.Entities.FertilizingHabit", b =>
@@ -104,15 +104,15 @@ namespace PlantNavigator.API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("TimeFrom")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("TimeFrom")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime?>("TimeTo")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("TimeTo")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("FertilizingHabit");
+                    b.ToTable("FertilizingHabits");
                 });
 
             modelBuilder.Entity("PlantNavigator.API.Entities.JoinEntities.FertilizingHabit_FertilizerType", b =>
@@ -135,7 +135,7 @@ namespace PlantNavigator.API.Migrations
 
                     b.HasIndex("FertilizingHabitId");
 
-                    b.ToTable("FertilizingHabit_FertilizerType");
+                    b.ToTable("FertilizingHabits_FertilizerTypes");
                 });
 
             modelBuilder.Entity("PlantNavigator.API.Entities.JoinEntities.Plant_Classification", b =>
@@ -158,7 +158,7 @@ namespace PlantNavigator.API.Migrations
 
                     b.HasIndex("PlantId");
 
-                    b.ToTable("Plant_Classification");
+                    b.ToTable("Plants_Classifications");
                 });
 
             modelBuilder.Entity("PlantNavigator.API.Entities.JoinEntities.Plant_Disease", b =>
@@ -170,7 +170,6 @@ namespace PlantNavigator.API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Condition")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DiseaseId")
@@ -185,7 +184,7 @@ namespace PlantNavigator.API.Migrations
 
                     b.HasIndex("PlantId");
 
-                    b.ToTable("Plant_Disease");
+                    b.ToTable("Plants_Diseases");
                 });
 
             modelBuilder.Entity("PlantNavigator.API.Entities.JoinEntities.Plant_FertilizingHabit", b =>
@@ -211,7 +210,7 @@ namespace PlantNavigator.API.Migrations
 
                     b.HasIndex("PlantId");
 
-                    b.ToTable("Plant_FertilizingHabit");
+                    b.ToTable("Plants_FertilizingHabits");
                 });
 
             modelBuilder.Entity("PlantNavigator.API.Entities.JoinEntities.Plant_Pest", b =>
@@ -237,7 +236,7 @@ namespace PlantNavigator.API.Migrations
 
                     b.HasIndex("PlantId");
 
-                    b.ToTable("Plant_Pest");
+                    b.ToTable("Plants_Pests");
                 });
 
             modelBuilder.Entity("PlantNavigator.API.Entities.JoinEntities.Plant_Soil", b =>
@@ -289,7 +288,7 @@ namespace PlantNavigator.API.Migrations
 
                     b.HasIndex("WateringHabitId");
 
-                    b.ToTable("Plant_WateringHabit");
+                    b.ToTable("Plants_WateringHabits");
                 });
 
             modelBuilder.Entity("PlantNavigator.API.Entities.LightCondition", b =>
@@ -334,7 +333,7 @@ namespace PlantNavigator.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Pest");
+                    b.ToTable("Pests");
                 });
 
             modelBuilder.Entity("PlantNavigator.API.Entities.Plant", b =>
@@ -348,11 +347,11 @@ namespace PlantNavigator.API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("FloweringFrom")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("FloweringFrom")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime?>("FloweringTo")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("FloweringTo")
+                        .HasColumnType("int");
 
                     b.Property<int?>("LightConditionId")
                         .HasColumnType("int");
@@ -436,15 +435,15 @@ namespace PlantNavigator.API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("TimeFrom")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("TimeFrom")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime?>("TimeTo")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("TimeTo")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("WateringHabit");
+                    b.ToTable("WateringHabits");
                 });
 
             modelBuilder.Entity("PlantNavigator.API.Entities.JoinEntities.FertilizingHabit_FertilizerType", b =>
