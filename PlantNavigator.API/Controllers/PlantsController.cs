@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PlantNavigator.API.Models.DTOs.Get;
 using PlantNavigator.API.Repositories;
+using PlantNavigator.API.Repositories.Interfaces;
 
 namespace PlantNavigator.API.Controllers
 {
@@ -11,9 +12,9 @@ namespace PlantNavigator.API.Controllers
     {
         private readonly IMapper mapper;
         private readonly ILogger<PlantsController> logger;
-        private readonly PlantsRepository plantsRepository;
+        private readonly IPlantsRepository plantsRepository;
 
-        public PlantsController(ILogger<PlantsController> logger, PlantsRepository plantsRepository, IMapper mapper)
+        public PlantsController(ILogger<PlantsController> logger, IPlantsRepository plantsRepository, IMapper mapper)
         {
             this.logger = logger ?? 
                 throw new ArgumentNullException(nameof(logger));

@@ -4,6 +4,7 @@ using PlantNavigator.API.Entities;
 using PlantNavigator.API.Models.DTOs.Get;
 using PlantNavigator.API.Models.DTOs.Post;
 using PlantNavigator.API.Repositories;
+using PlantNavigator.API.Repositories.Interfaces;
 
 namespace PlantNavigator.API.Controllers
 {
@@ -13,10 +14,10 @@ namespace PlantNavigator.API.Controllers
     {
         private readonly IMapper mapper;
         private readonly ILogger logger;
-        private readonly ClassificationsRepository classificationsRepository;
+        private readonly IClassificationsRepository classificationsRepository;
 
         public ClassificationsController(ILogger<ClassificationsController> logger,
-            ClassificationsRepository classificationsRepository, IMapper mapper)
+            IClassificationsRepository classificationsRepository, IMapper mapper)
         {
             this.logger = logger ??
                throw new ArgumentNullException(nameof(logger));
@@ -35,10 +36,44 @@ namespace PlantNavigator.API.Controllers
             return Ok(mapper.Map<IEnumerable<ClassificationGetDto>>(classifications));
         }
 
+
+        [HttpGet("{id}", Name = "GetClassificationById")]
+        public async Task<ActionResult<ClassificationGetDto>> GetClassificationById(int id)
+        {
+            var classification = await classificationsRepository.GetById(id);
+
+            if (classification == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(mapper.Map<ClassificationGetDto>(classification));
+        }
+
+
+
         [HttpPost(Name = "PostClassification")]
         public async Task<ActionResult> PostClassification(ClassificationPostDto classification)
         {
+            Classification finalClassification = null;
+            try
+            {
+                finalClassification = mapper.Map<Classification>(classification);
+            }
+            catch (Exception ex)
+            {
+                logger.LogInformation($"User classification post not successfull: {ex.ToString}");
+                return BadRequest();
+            }
 
+            await classificationsRepository.AddClassification(finalClassification);
+            
+            return CreatedAtRoute("GetClassificationById",
+                new
+                {
+                    id = finalClassification.Id
+                }, mapper.Map<ClassificationGetDto>(finalClassification));
+           
         }
     }
 }
