@@ -6,31 +6,26 @@ using System.Linq.Expressions;
 
 namespace PlantNavigator.API.Repositories
 {
-    public class PlantsRepository : IPlantsRepository
+    public class ClassificationsRepository : IClassificationsRepository
     {
         protected readonly PlantNavigatorContext dbContext;
 
-        public PlantsRepository(PlantNavigatorContext dbContext)
+        public ClassificationsRepository(PlantNavigatorContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
 
-
-
-        public async Task<IEnumerable<Plant>> GetAll(Expression<Func<Plant, bool>> predicate = null)
+        public async Task<IEnumerable<Classification>> GetAll(Expression<Func<Classification, bool>> predicate = null)
         {
-            var all = dbContext.Set<Plant>().AsNoTracking();
+            var all = dbContext.Set<Classification>().AsNoTracking();
 
             if (predicate != null)
             {
                 all = all.Where(predicate);
             }
 
-            all = all.Include(p => p.WaterCondition).Include(p => p.LightCondition);
-
             return await all.ToListAsync();
         }
-
     }
 }

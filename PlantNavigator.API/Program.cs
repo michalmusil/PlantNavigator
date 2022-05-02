@@ -30,6 +30,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // CUSTOM DI FOR REPOSITORIES ETC.
 builder.Services.AddScoped<PlantsRepository, PlantsRepository>();
+builder.Services.AddScoped<ClassificationsRepository, ClassificationsRepository>();
 
 
 
