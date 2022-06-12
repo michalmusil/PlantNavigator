@@ -31,9 +31,9 @@ namespace PlantNavigator.API.Controllers
         }
 
         [HttpGet(Name = "GetClassifications")]
-        public async Task<ActionResult<IEnumerable<ClassificationGetDto>>> GetClassifications()
+        public async Task<ActionResult<IEnumerable<ClassificationGetDto>>> GetClassifications([FromQuery] string? name)
         {
-            var classifications = await classificationsRepository.GetAll();
+            var classifications = await classificationsRepository.GetAll(name);
             return Ok(mapper.Map<IEnumerable<ClassificationGetDto>>(classifications));
         }
 

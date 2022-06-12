@@ -6,7 +6,7 @@ namespace PlantNavigator.API.Repositories.Interfaces
 {
     public interface IClassificationsRepository
     {
-        public Task<IEnumerable<Classification>> GetAll(Expression<Func<Classification, bool>> predicate = null);
+        public Task<IEnumerable<Classification>> GetAll(string? name = null);
 
         public Task<Classification> GetById(int id);
 

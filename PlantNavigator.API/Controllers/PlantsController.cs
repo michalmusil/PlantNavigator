@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PlantNavigator.API.Entities.JoinEntities;
 using PlantNavigator.API.Models.DTOs.Get;
+using PlantNavigator.API.Models.DTOs.Post;
 using PlantNavigator.API.Repositories;
 using PlantNavigator.API.Repositories.Interfaces;
 
@@ -28,14 +30,46 @@ namespace PlantNavigator.API.Controllers
 
 
 
-
-
-
+        // PLANT endpoints
         [HttpGet(Name = "GetPlants")]
         public async Task<ActionResult<IEnumerable<PlantGetDto>>> GetPlants()
         {
             var plants = await plantsRepository.GetAll();
             return Ok(mapper.Map<IEnumerable<PlantGetDto>>(plants));
+        }
+
+
+        // SOIL realted endpoints
+        [HttpGet("plantsOfSoil/{id}", Name = "GetPlantsOfSoil")]
+        public async Task<ActionResult<IEnumerable<PlantGetDto>>> GetPlantsOfSoil(int id)
+        {
+            var plants = await plantsRepository.GetPlantsOfSoil(id);
+            return Ok(mapper.Map<IEnumerable<PlantGetDto>>(plants));
+        }
+
+        [HttpPost("plantsOfSoil", Name = "PostPlantSoilJoin")]
+        public async Task<ActionResult> PostPlantSoilJoin(Plant_SoilPostDto joining)
+        {
+            if (!await plantsRepository.PlantExists(joining.PlantId))
+            {
+                return NotFound();
+            }
+
+            if (!await plantsRepository.SoilExists(joining.SoilId))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                var joinToAdd = mapper.Map<Plant_Soil>(joining);
+                await plantsRepository.AddPlantSoilJoin(joinToAdd);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
         }
         /*
         [HttpGet("{id}", Name = "GetPlantById")]

@@ -19,13 +19,13 @@ namespace PlantNavigator.API.Repositories
 
 
 
-        public async Task<IEnumerable<Classification>> GetAll(Expression<Func<Classification, bool>> predicate = null)
+        public async Task<IEnumerable<Classification>> GetAll(string? name)
         {
             var all = dbContext.Set<Classification>().AsNoTracking();
 
-            if (predicate != null)
+            if (name != null)
             {
-                all = all.Where(predicate);
+                all = all.Where(c => c.Name.ToLower().Contains(name.ToLower()));
             }
 
             return await all.ToListAsync();
@@ -39,7 +39,6 @@ namespace PlantNavigator.API.Repositories
         public async Task<bool> AddClassification(Classification classification)
         {
             dbContext.Classifications.Add(classification);
-
             return await dbContext.SaveChangesAsync() > 0;
         }
 
