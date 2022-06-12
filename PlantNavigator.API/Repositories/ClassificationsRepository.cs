@@ -43,6 +43,16 @@ namespace PlantNavigator.API.Repositories
             return await dbContext.SaveChangesAsync() > 0;
         }
 
-      
+        public async Task<bool> UpdateClassification(Classification classification)
+        {
+            return await dbContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> ClassificationExists(int id)
+        {
+            return await dbContext.Classifications.AnyAsync(c => c.Id == id);
+        }
+
+
     }
 }

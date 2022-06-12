@@ -2,6 +2,7 @@
 using PlantNavigator.API.Entities;
 using PlantNavigator.API.Models.DTOs.Get;
 using PlantNavigator.API.Models.DTOs.Post;
+using PlantNavigator.API.Models.DTOs.Put;
 
 namespace PlantNavigator.API.AutoMapperProfiles
 {
@@ -11,6 +12,7 @@ namespace PlantNavigator.API.AutoMapperProfiles
         {
             CreateMap<Classification, ClassificationGetDto>();
             CreateMap<ClassificationPostDto, Classification>();
+            CreateMap<ClassificationPutDto, Classification>();
         }
     }
 }

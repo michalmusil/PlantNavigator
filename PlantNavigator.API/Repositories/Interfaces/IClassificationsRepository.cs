@@ -11,5 +11,9 @@ namespace PlantNavigator.API.Repositories.Interfaces
         public Task<Classification> GetById(int id);
 
         public Task<bool> AddClassification(Classification classification);
+
+        public Task<bool> UpdateClassification(Classification classification);
+
+        public Task<bool> ClassificationExists(int id);
     }
 }

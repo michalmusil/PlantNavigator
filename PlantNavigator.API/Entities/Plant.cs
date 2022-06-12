@@ -14,6 +14,8 @@ namespace PlantNavigator.API.Entities
         public string? Description { get; set; }
         public Month? FloweringFrom { get; set; }
         public Month? FloweringTo { get; set; }
+        public int? TemperatureFrom { get; set; }
+        public int? TemperatureTo { get; set; }
         public bool? MistingAppropriate { get; set; }
 
         public WaterCondition? WaterCondition { get; set; } 

@@ -1,13 +1,14 @@
 ﻿using PlantNavigator.API.Entities.Enums;
+using System.ComponentModel.DataAnnotations;
 
-namespace PlantNavigator.API.Models.DTOs.Get
+namespace PlantNavigator.API.Models.DTOs.Put
 {
-    public class ClassificationGetDto
+    public class ClassificationPutDto
     {
-        public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         public string? Description { get; set; }
+        [Range(0, 6)]
         public ClassificationType ClassificationType { get; set; }
-
     }
 }

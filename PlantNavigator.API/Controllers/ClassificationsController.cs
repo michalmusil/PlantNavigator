@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PlantNavigator.API.Entities;
 using PlantNavigator.API.Models.DTOs.Get;
 using PlantNavigator.API.Models.DTOs.Post;
+using PlantNavigator.API.Models.DTOs.Put;
 using PlantNavigator.API.Repositories;
 using PlantNavigator.API.Repositories.Interfaces;
 
@@ -29,7 +30,7 @@ namespace PlantNavigator.API.Controllers
                 throw new ArgumentNullException(nameof(mapper));
         }
 
-        [HttpGet(Name ="GetClassifications")]
+        [HttpGet(Name = "GetClassifications")]
         public async Task<ActionResult<IEnumerable<ClassificationGetDto>>> GetClassifications()
         {
             var classifications = await classificationsRepository.GetAll();
@@ -67,13 +68,28 @@ namespace PlantNavigator.API.Controllers
             }
 
             await classificationsRepository.AddClassification(finalClassification);
-            
+
             return CreatedAtRoute("GetClassificationById",
                 new
                 {
                     id = finalClassification.Id
                 }, mapper.Map<ClassificationGetDto>(finalClassification));
-           
+        }
+
+        [HttpPut("{id}", Name = "UpdateClassification")]
+        public async Task<ActionResult> UpdateClassification(int id, ClassificationPutDto classification)
+        {
+            var foundClassification = await classificationsRepository.GetById(id);
+
+            if (foundClassification == null)
+            {
+                return NotFound();
+            }
+
+            mapper.Map(classification, foundClassification);
+            classificationsRepository.UpdateClassification(foundClassification);
+
+            return NoContent();
         }
     }
 }
