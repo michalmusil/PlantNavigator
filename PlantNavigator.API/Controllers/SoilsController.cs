@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using PlantNavigator.API.Entities;
 using PlantNavigator.API.Entities.JoinEntities;
-using PlantNavigator.API.Models.DTOs.Get;
-using PlantNavigator.API.Models.DTOs.Post;
-using PlantNavigator.API.Models.DTOs.Put;
+using PlantNavigator.API.Models.DTOs.ManyToMany;
+using PlantNavigator.API.Models.DTOs.Soil;
 using PlantNavigator.API.Repositories.Interfaces;
 
 namespace PlantNavigator.API.Controllers

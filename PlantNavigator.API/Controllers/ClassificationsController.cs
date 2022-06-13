@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PlantNavigator.API.Entities;
 using PlantNavigator.API.Entities.Enums;
-using PlantNavigator.API.Models.DTOs.Get;
-using PlantNavigator.API.Models.DTOs.Post;
-using PlantNavigator.API.Models.DTOs.Put;
+using PlantNavigator.API.Models.DTOs.Classification;
 using PlantNavigator.API.Repositories;
 using PlantNavigator.API.Repositories.Interfaces;
 

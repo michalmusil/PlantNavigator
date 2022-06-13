@@ -1,9 +1,9 @@
 ﻿using PlantNavigator.API.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace PlantNavigator.API.Models.DTOs.Post
+namespace PlantNavigator.API.Models.DTOs.Classification
 {
-    public class ClassificationPostDto
+    public class ClassificationPutDto
     {
         [Required]
         public string Name { get; set; }

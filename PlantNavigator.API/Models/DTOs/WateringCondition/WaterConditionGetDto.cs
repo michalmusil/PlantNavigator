@@ -1,13 +1,12 @@
 ﻿using PlantNavigator.API.Entities.Enums;
 
-namespace PlantNavigator.API.Models.DTOs.Get
+namespace PlantNavigator.API.Models.DTOs.WateringCondition
 {
-    public class ClassificationGetDto
+    public class WaterConditionGetDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public WateringIntensity Intensity { get; set; }
         public string? Description { get; set; }
-        public ClassificationType ClassificationType { get; set; }
-
     }
 }

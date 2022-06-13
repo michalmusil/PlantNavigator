@@ -1,6 +1,6 @@
 ﻿using PlantNavigator.API.Entities.Enums;
 
-namespace PlantNavigator.API.Models.DTOs.Get
+namespace PlantNavigator.API.Models.DTOs.LightCondition
 {
     public class LightConditionGetDto
     {

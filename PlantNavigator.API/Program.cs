@@ -33,6 +33,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IPlantsRepository, PlantsRepository>();
 builder.Services.AddScoped<IClassificationsRepository, ClassificationsRepository>();
 builder.Services.AddScoped<ISoilsRepository, SoilsRepository>();
+builder.Services.AddScoped<IPestsRepository, PestsRepository>();
 
 
 

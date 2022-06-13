@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PlantNavigator.API.Models.DTOs.Post
+namespace PlantNavigator.API.Models.DTOs.ManyToMany
 {
     public class Plant_SoilPostDto
     {

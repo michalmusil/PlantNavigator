@@ -1,6 +1,4 @@
 ﻿using PlantNavigator.API.Entities;
-using PlantNavigator.API.Models.DTOs.Post;
-using System.Linq.Expressions;
 
 namespace PlantNavigator.API.Repositories.Interfaces
 {

@@ -1,4 +1,4 @@
-﻿namespace PlantNavigator.API.Models.DTOs.Get
+﻿namespace PlantNavigator.API.Models.DTOs.Classification
 {
     public class ClassificationTypeGetDto
     {

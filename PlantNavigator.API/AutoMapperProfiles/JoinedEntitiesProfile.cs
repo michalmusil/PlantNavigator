@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using PlantNavigator.API.Entities.JoinEntities;
-using PlantNavigator.API.Models.DTOs.Post;
+using PlantNavigator.API.Models.DTOs.ManyToMany;
 
 namespace PlantNavigator.API.AutoMapperProfiles
 {

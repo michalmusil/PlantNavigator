@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PlantNavigator.API.DbContexts;
 using PlantNavigator.API.Entities;
-using PlantNavigator.API.Models.DTOs.Post;
 using PlantNavigator.API.Repositories.Interfaces;
-using System.Linq.Expressions;
 
 namespace PlantNavigator.API.Repositories
 {

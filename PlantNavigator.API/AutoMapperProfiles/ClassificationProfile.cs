@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using PlantNavigator.API.Entities;
-using PlantNavigator.API.Models.DTOs.Get;
-using PlantNavigator.API.Models.DTOs.Post;
-using PlantNavigator.API.Models.DTOs.Put;
+using PlantNavigator.API.Models.DTOs.Classification;
 
 namespace PlantNavigator.API.AutoMapperProfiles
 {

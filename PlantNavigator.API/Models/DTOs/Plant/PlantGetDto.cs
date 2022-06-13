@@ -1,7 +1,9 @@
 ﻿
 using PlantNavigator.API.Entities.Enums;
+using PlantNavigator.API.Models.DTOs.LightCondition;
+using PlantNavigator.API.Models.DTOs.WateringCondition;
 
-namespace PlantNavigator.API.Models.DTOs.Get
+namespace PlantNavigator.API.Models.DTOs.Plant
 {
     public class PlantGetDto
     {
