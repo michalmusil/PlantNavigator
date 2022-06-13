@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PlantNavigator.API.Entities;
+using PlantNavigator.API.Entities.Enums;
 using PlantNavigator.API.Models.DTOs.Get;
 using PlantNavigator.API.Models.DTOs.Post;
 using PlantNavigator.API.Models.DTOs.Put;
@@ -35,6 +36,18 @@ namespace PlantNavigator.API.Controllers
         {
             var classifications = await classificationsRepository.GetAll(name);
             return Ok(mapper.Map<IEnumerable<ClassificationGetDto>>(classifications));
+        }
+
+        [HttpGet("classificationTypes", Name = "GetClassificationTypes")]
+        public async Task<ActionResult<IEnumerable<ClassificationType>>> GetClassificationTypes()
+        {
+            List<ClassificationTypeGetDto> classificationTypes = new List<ClassificationTypeGetDto>();
+            foreach (int t in Enum.GetValues(typeof(ClassificationType)))
+            {
+                var type = new ClassificationTypeGetDto(t, Enum.GetName(typeof(ClassificationType), t));
+                classificationTypes.Add(type);
+            }
+            return Ok(classificationTypes);
         }
 
 
