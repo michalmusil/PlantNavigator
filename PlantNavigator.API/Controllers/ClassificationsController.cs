@@ -32,9 +32,9 @@ namespace PlantNavigator.API.Controllers
         }
 
         [HttpGet(Name = "GetClassifications")]
-        public async Task<ActionResult<IEnumerable<ClassificationGetDto>>> GetClassifications([FromQuery] string? name)
+        public async Task<ActionResult<IEnumerable<ClassificationGetDto>>> GetClassifications([FromQuery] string? nameQuery)
         {
-            var classifications = await classificationsRepository.GetAll(name);
+            var classifications = await classificationsRepository.GetAll(nameQuery);
             return Ok(mapper.Map<IEnumerable<ClassificationGetDto>>(classifications));
         }
 
@@ -102,6 +102,21 @@ namespace PlantNavigator.API.Controllers
             mapper.Map(classification, foundClassification);
             classificationsRepository.UpdateClassification(foundClassification);
 
+            return NoContent();
+        }
+
+        [HttpDelete("{id}", Name = "DeleteClassificationById")]
+        public async Task<ActionResult> DeleteClassificationById(int id)
+        {
+            var classification = await classificationsRepository.GetById(id);
+
+            if (classification == null)
+            {
+                return NotFound();
+            }
+
+            await classificationsRepository.DeleteClassification(classification);
+    
             return NoContent();
         }
     }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PlantNavigator.API.Entities;
+using PlantNavigator.API.Entities.JoinEntities;
 using PlantNavigator.API.Models.DTOs.Get;
 using PlantNavigator.API.Models.DTOs.Post;
 using PlantNavigator.API.Models.DTOs.Put;
@@ -30,9 +31,9 @@ namespace PlantNavigator.API.Controllers
         }
 
         [HttpGet(Name = "GetSoils")]
-        public async Task<ActionResult<IEnumerable<SoilGetDto>>> GetSoils([FromQuery] string? name)
+        public async Task<ActionResult<IEnumerable<SoilGetDto>>> GetSoils([FromQuery] string? nameQuery)
         {
-            var soils = await soilsRepository.GetAll(name);
+            var soils = await soilsRepository.GetAll(nameQuery);
             return Ok(mapper.Map<IEnumerable<SoilGetDto>>(soils));
         }
 
@@ -86,6 +87,68 @@ namespace PlantNavigator.API.Controllers
 
             mapper.Map(soil, foundSoil);
             soilsRepository.UpdateSoil(foundSoil);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}", Name = "DeleteSoilById")]
+        public async Task<ActionResult> DeleteSoilById(int id)
+        {
+            var soil = await soilsRepository.GetById(id);
+
+            if (soil == null)
+            {
+                return NotFound();
+            }
+
+            await soilsRepository.DeleteSoil(soil);
+
+            return NoContent();
+        }
+
+
+
+
+
+
+
+        // PLANT TO SOIL realted endpoints
+        [HttpPost("plantSoil", Name = "PostPlantSoil")]
+        public async Task<ActionResult> PostPlantSoil(Plant_SoilPostDto joining)
+        {
+            if (!await soilsRepository.PlantExists(joining.PlantId))
+            {
+                return NotFound();
+            }
+
+            if (!await soilsRepository.SoilExists(joining.SoilId))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                var joinToAdd = mapper.Map<Plant_Soil>(joining);
+                await soilsRepository.AddPlantSoilJoin(joinToAdd);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete("plantSoil", Name = "DeletePlantSoilById")]
+        public async Task<ActionResult> DeletePlantSoilById([FromQuery] int plantId, [FromQuery] int soilId)
+        {
+            var plantSoil = await soilsRepository.GetPlantSoilById(plantId, soilId);
+
+            if (plantSoil == null)
+            {
+                return NotFound();
+            }
+
+            await soilsRepository.DeletePlantSoil(plantSoil);
 
             return NoContent();
         }

@@ -1,5 +1,4 @@
 ﻿using PlantNavigator.API.Entities;
-using PlantNavigator.API.Entities.JoinEntities;
 using System.Linq.Expressions;
 
 namespace PlantNavigator.API.Repositories.Interfaces
@@ -8,9 +7,11 @@ namespace PlantNavigator.API.Repositories.Interfaces
     {
         public Task<IEnumerable<Plant>> GetAll(Expression<Func<Plant, bool>> predicate = null);
 
+        public Task<Plant> GetById(int id);
+
         public Task<IEnumerable<Plant>> GetPlantsOfSoil(int id);
 
-        public Task<bool> AddPlantSoilJoin(Plant_Soil join);
+        public Task<bool> DeletePlant(Plant plant);
 
         public Task<bool> PlantExists(int id);
 

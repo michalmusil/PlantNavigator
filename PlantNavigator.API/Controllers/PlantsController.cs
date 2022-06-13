@@ -18,10 +18,10 @@ namespace PlantNavigator.API.Controllers
 
         public PlantsController(ILogger<PlantsController> logger, IPlantsRepository plantsRepository, IMapper mapper)
         {
-            this.logger = logger ?? 
+            this.logger = logger ??
                 throw new ArgumentNullException(nameof(logger));
 
-            this.plantsRepository = plantsRepository ?? 
+            this.plantsRepository = plantsRepository ??
                 throw new ArgumentNullException(nameof(plantsRepository));
 
             this.mapper = mapper ??
@@ -30,7 +30,6 @@ namespace PlantNavigator.API.Controllers
 
 
 
-        // PLANT endpoints
         [HttpGet(Name = "GetPlants")]
         public async Task<ActionResult<IEnumerable<PlantGetDto>>> GetPlants()
         {
@@ -38,39 +37,22 @@ namespace PlantNavigator.API.Controllers
             return Ok(mapper.Map<IEnumerable<PlantGetDto>>(plants));
         }
 
-
-        // SOIL realted endpoints
-        [HttpGet("plantsOfSoil/{id}", Name = "GetPlantsOfSoil")]
-        public async Task<ActionResult<IEnumerable<PlantGetDto>>> GetPlantsOfSoil(int id)
+        [HttpDelete("{id}", Name = "DeletePlantById")]
+        public async Task<ActionResult> DeletePlantById(int id)
         {
-            var plants = await plantsRepository.GetPlantsOfSoil(id);
-            return Ok(mapper.Map<IEnumerable<PlantGetDto>>(plants));
-        }
+            var plant = await plantsRepository.GetById(id);
 
-        [HttpPost("plantsOfSoil", Name = "PostPlantSoilJoin")]
-        public async Task<ActionResult> PostPlantSoilJoin(Plant_SoilPostDto joining)
-        {
-            if (!await plantsRepository.PlantExists(joining.PlantId))
+            if (plant == null)
             {
                 return NotFound();
             }
 
-            if (!await plantsRepository.SoilExists(joining.SoilId))
-            {
-                return NotFound();
-            }
+            await plantsRepository.DeletePlant(plant);
 
-            try
-            {
-                var joinToAdd = mapper.Map<Plant_Soil>(joining);
-                await plantsRepository.AddPlantSoilJoin(joinToAdd);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest();
-            }
+            return NoContent();
         }
+
+
         /*
         [HttpGet("{id}", Name = "GetPlantById")]
         public ActionResult<PlantGetDto> GetPlant(int id)

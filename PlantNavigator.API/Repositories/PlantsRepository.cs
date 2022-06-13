@@ -33,6 +33,14 @@ namespace PlantNavigator.API.Repositories
             return await all.ToListAsync();
         }
 
+        public async Task<Plant> GetById(int id)
+        {
+            return await dbContext.Plants.Where(p => p.Id == id).FirstOrDefaultAsync();
+        }
+
+
+
+
         public async Task<IEnumerable<Plant>> GetPlantsOfSoil(int id)
         {
             var all = dbContext.Set<Plant>().AsNoTracking();
@@ -42,9 +50,9 @@ namespace PlantNavigator.API.Repositories
             return await all.ToListAsync();
         }
 
-        public async Task<bool> AddPlantSoilJoin(Plant_Soil join)
+        public async Task<bool> DeletePlant(Plant plant)
         {
-            dbContext.Plants_Soils.Add(join);
+            dbContext.Remove(plant);
             return await dbContext.SaveChangesAsync() > 0;
         }
 

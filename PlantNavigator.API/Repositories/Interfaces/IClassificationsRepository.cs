@@ -14,6 +14,8 @@ namespace PlantNavigator.API.Repositories.Interfaces
 
         public Task<bool> UpdateClassification(Classification classification);
 
+        public Task<bool> DeleteClassification(Classification classification);
+
         public Task<bool> ClassificationExists(int id);
     }
 }

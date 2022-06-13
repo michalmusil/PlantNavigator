@@ -43,10 +43,42 @@ namespace PlantNavigator.API.Repositories
             return await dbContext.SaveChangesAsync() > 0;
         }
 
+        public async Task<bool> DeleteSoil(Soil soil)
+        {
+            dbContext.Remove(soil);
+            return await dbContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> PlantExists(int id)
+        {
+            return await dbContext.Plants.AnyAsync(c => c.Id == id);
+        }
+
         public async Task<bool> SoilExists(int id)
         {
             return await dbContext.Soils.AnyAsync(c => c.Id == id);
         }
+
+
+
+
+        public async Task<Plant_Soil> GetPlantSoilById(int plantId, int soilId)
+        {
+            return await dbContext.Plants_Soils.Where(c => c.PlantId == plantId && c.SoilId == soilId).FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> AddPlantSoilJoin(Plant_Soil join)
+        {
+            dbContext.Plants_Soils.Add(join);
+            return await dbContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> DeletePlantSoil(Plant_Soil plantSoil)
+        {
+            dbContext.Remove(plantSoil);
+            return await dbContext.SaveChangesAsync() > 0;
+        }
+
 
     }
 }
