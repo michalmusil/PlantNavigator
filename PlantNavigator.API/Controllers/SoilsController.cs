@@ -16,7 +16,7 @@ namespace PlantNavigator.API.Controllers
         private readonly ILogger logger;
         private readonly ISoilsRepository soilsRepository;
 
-        public SoilsController(ILogger<ClassificationsController> logger,
+        public SoilsController(ILogger<SoilsController> logger,
             ISoilsRepository soilsRepository, IMapper mapper)
         {
             this.logger = logger ??

@@ -34,6 +34,7 @@ builder.Services.AddScoped<IPlantsRepository, PlantsRepository>();
 builder.Services.AddScoped<IClassificationsRepository, ClassificationsRepository>();
 builder.Services.AddScoped<ISoilsRepository, SoilsRepository>();
 builder.Services.AddScoped<IPestsRepository, PestsRepository>();
+builder.Services.AddScoped<IWateringHabitsRepository, WateringHabitsRepository>();
 
 
 

@@ -9,7 +9,11 @@ namespace PlantNavigator.API.AutoMapperProfiles
         public JoinedEntitiesProfile()
         {
             CreateMap<Plant_SoilPostDto, Plant_Soil>();
-            CreateMap<Plant_Soil, Plant_SoilPostDto>();
+
+            CreateMap<Plant_PestPostDto, Plant_Pest>();
+
+            CreateMap<Plant_WateringHabitPostDto, Plant_WateringHabit>();
+            CreateMap<Plant_WateringHabit, Plant_WateringHabitGetDto>();
         }
     }
 }
