@@ -1,5 +1,4 @@
 ﻿using PlantNavigator.API.Entities.Enums;
-using PlantNavigator.API.Models.DTOs.ManyToMany;
 
 namespace PlantNavigator.API.Models.DTOs.WateringHabit
 {

@@ -5,7 +5,7 @@ namespace PlantNavigator.API.Repositories.Interfaces
 {
     public interface ISoilsRepository
     {
-        public Task<IEnumerable<Soil>> GetAll(string? name = null);
+        public Task<IEnumerable<Soil>> GetAll(string? name = null, int? plantId = null, bool? includeAsociatedPlants = null);
 
         public Task<Soil> GetById(int id);
 

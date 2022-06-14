@@ -15,21 +15,31 @@ namespace PlantNavigator.API.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Soil>> GetAll(string? name = null)
+        public async Task<IEnumerable<Soil>> GetAll(string? name = null, int? plantId = null, bool? includeAsociatedPlants = null)
         {
             var all = dbContext.Set<Soil>().AsNoTracking();
+
+            if (includeAsociatedPlants == true)
+            {
+                all = all.Include(s => s.Plant_Soils);
+            }
 
             if (name != null)
             {
                 all = all.Where(s => s.Name.ToLower().Contains(name.ToLower()));
             }
 
+            if (plantId != null)
+            {
+                all = all.Where(s => s.Plant_Soils.Any(x => x.PlantId == plantId));
+            }            
+
             return await all.ToListAsync();
         }
 
         public async Task<Soil> GetById(int id)
         {
-            return await dbContext.Soils.Where(s => s.Id == id).FirstOrDefaultAsync();
+            return await dbContext.Soils.Include(s => s.Plant_Soils).Where(s => s.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<bool> AddSoil(Soil soil)

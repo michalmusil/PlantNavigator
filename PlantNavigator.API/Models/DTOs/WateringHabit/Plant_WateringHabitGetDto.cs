@@ -1,4 +1,4 @@
-﻿namespace PlantNavigator.API.Models.DTOs.ManyToMany
+﻿namespace PlantNavigator.API.Models.DTOs.WateringHabit
 {
     public class Plant_WateringHabitGetDto
     {

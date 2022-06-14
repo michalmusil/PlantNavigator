@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PlantNavigator.API.Entities;
 using PlantNavigator.API.Entities.JoinEntities;
-using PlantNavigator.API.Models.DTOs.ManyToMany;
 using PlantNavigator.API.Models.DTOs.Pest;
 using PlantNavigator.API.Repositories.Interfaces;
 
@@ -30,9 +29,10 @@ namespace PlantNavigator.API.Controllers
         }
 
         [HttpGet(Name = "GetPests")]
-        public async Task<ActionResult<IEnumerable<PestGetDto>>> GetPests([FromQuery] string? nameQuery)
+        public async Task<ActionResult<IEnumerable<PestGetDto>>> GetPests([FromQuery] string? pestName,
+            [FromQuery] int? plantId, [FromQuery] bool? includeAsociatedPlants)
         {
-            var pests = await pestsRepository.GetAll(nameQuery);
+            var pests = await pestsRepository.GetAll(pestName, plantId, includeAsociatedPlants);
             return Ok(mapper.Map<IEnumerable<PestGetDto>>(pests));
         }
 

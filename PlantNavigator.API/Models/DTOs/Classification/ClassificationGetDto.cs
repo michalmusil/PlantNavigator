@@ -9,5 +9,6 @@ namespace PlantNavigator.API.Models.DTOs.Classification
         public string? Description { get; set; }
         public ClassificationType ClassificationType { get; set; }
 
+        public List<Plant_ClassificationGetDto> Plant_Classifications { get; set; }
     }
 }

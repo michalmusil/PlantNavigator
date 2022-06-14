@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PlantNavigator.API.Entities;
 using PlantNavigator.API.Entities.JoinEntities;
-using PlantNavigator.API.Models.DTOs.ManyToMany;
 using PlantNavigator.API.Models.DTOs.WateringHabit;
 using PlantNavigator.API.Repositories.Interfaces;
 

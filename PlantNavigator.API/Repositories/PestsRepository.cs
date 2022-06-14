@@ -15,13 +15,23 @@ namespace PlantNavigator.API.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Pest>> GetAll(string? name = null)
+        public async Task<IEnumerable<Pest>> GetAll(string? name = null, int? plantId = null, bool? includeAsociatedPlants = null)
         {
             var all = dbContext.Set<Pest>().AsNoTracking();
 
+            if (includeAsociatedPlants == true)
+            {
+                all = all.Include(p => p.Plant_Pests);
+            }
+
             if (name != null)
             {
-                all = all.Where(s => s.Name.ToLower().Contains(name.ToLower()));
+                all = all.Where(p => p.Name.ToLower().Contains(name.ToLower()));
+            }
+
+            if (plantId != null)
+            {
+                all.Where(p => p.Plant_Pests.Any(x => x.PlantId == plantId));
             }
 
             return await all.ToListAsync();
@@ -29,7 +39,7 @@ namespace PlantNavigator.API.Repositories
 
         public async Task<Pest> GetById(int id)
         {
-            return await dbContext.Pests.Where(s => s.Id == id).FirstOrDefaultAsync();
+            return await dbContext.Pests.Include(p => p.Plant_Pests).Where(p => p.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<bool> AddPest(Pest pest)

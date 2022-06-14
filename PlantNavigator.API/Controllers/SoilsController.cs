@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PlantNavigator.API.Entities;
 using PlantNavigator.API.Entities.JoinEntities;
-using PlantNavigator.API.Models.DTOs.ManyToMany;
 using PlantNavigator.API.Models.DTOs.Soil;
 using PlantNavigator.API.Repositories.Interfaces;
 
@@ -30,9 +29,10 @@ namespace PlantNavigator.API.Controllers
         }
 
         [HttpGet(Name = "GetSoils")]
-        public async Task<ActionResult<IEnumerable<SoilGetDto>>> GetSoils([FromQuery] string? nameQuery)
+        public async Task<ActionResult<IEnumerable<SoilGetDto>>> GetSoils([FromQuery] string? soilName, 
+            [FromQuery] int? plantId, [FromQuery] bool? includeAsociatedPlants)
         {
-            var soils = await soilsRepository.GetAll(nameQuery);
+            var soils = await soilsRepository.GetAll(soilName, plantId, includeAsociatedPlants);
             return Ok(mapper.Map<IEnumerable<SoilGetDto>>(soils));
         }
 
