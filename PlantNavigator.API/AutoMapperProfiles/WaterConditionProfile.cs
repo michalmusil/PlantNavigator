@@ -9,6 +9,8 @@ namespace PlantNavigator.API.AutoMapperProfiles
         public WaterConditionProfile()
         {
             CreateMap<WaterCondition, WaterConditionGetDto>();
+            CreateMap<WaterConditionPostDto, WaterCondition>();
+            CreateMap<WaterConditionPutDto, WaterCondition>();
         }
     }
 }

@@ -35,15 +35,13 @@ namespace PlantNavigator.API.Controllers
             SunlightIntensity? intensity = null;
             if (lightIntensity != null)
             {
-                try
-                {
-                    intensity = (SunlightIntensity)lightIntensity;
-                }
-                catch (Exception ex)
+                if (lightIntensity > (Enum.GetValues(typeof(SunlightIntensity))).Length - 1 || lightIntensity < 0)
                 {
                     return BadRequest("Light intensity out of scope");
                 }
+                intensity = (SunlightIntensity)lightIntensity;
             }
+            
             var lightConditions = await lightConditionsRepository.GetAll(lightConditionName, intensity);
             return Ok(mapper.Map<IEnumerable<LightConditionGetDto>>(lightConditions));
         }
