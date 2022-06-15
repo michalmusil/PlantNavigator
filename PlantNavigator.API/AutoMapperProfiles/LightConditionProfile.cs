@@ -9,6 +9,8 @@ namespace PlantNavigator.API.AutoMapperProfiles
         public LightConditionProfile()
         {
             CreateMap<LightCondition, LightConditionGetDto>();
+            CreateMap<LightConditionPostDto, LightCondition>();
+            CreateMap<LightConditionPutDto, LightCondition>();
         }
     }
 }

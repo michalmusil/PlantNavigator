@@ -37,6 +37,7 @@ builder.Services.AddScoped<IPestsRepository, PestsRepository>();
 builder.Services.AddScoped<IWateringHabitsRepository, WateringHabitsRepository>();
 builder.Services.AddScoped<IFertilizingHabitsRepository, FertilizingHabitsRepository>();
 builder.Services.AddScoped<IFertilizerTypesRepository, FertilizerTypesRepository>();
+builder.Services.AddScoped<IDiseasesRepository, DiseasesRepository>();
 
 
 
