@@ -1,0 +1,9 @@
+﻿namespace PlantNavigator.API.Models.DTOs.FertilizerType
+{
+    public class FertilizerTypeGetDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string? Description { get; set; }
+    }
+}

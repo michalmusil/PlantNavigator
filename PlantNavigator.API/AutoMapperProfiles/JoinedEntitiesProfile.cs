@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PlantNavigator.API.Entities.JoinEntities;
 using PlantNavigator.API.Models.DTOs.Classification;
+using PlantNavigator.API.Models.DTOs.FertilizerType;
 using PlantNavigator.API.Models.DTOs.FertilizingHabit;
 using PlantNavigator.API.Models.DTOs.Pest;
 using PlantNavigator.API.Models.DTOs.Soil;
@@ -26,6 +27,8 @@ namespace PlantNavigator.API.AutoMapperProfiles
 
             CreateMap<Plant_FertilizingHabitPostDto, Plant_FertilizingHabit>();
             CreateMap<Plant_FertilizingHabit, Plant_FertilizingHabitGetDto>();
+
+            CreateMap<FertilizingHabit_FertilizerTypePostDto, FertilizingHabit_FertilizerType>();
         }
     }
 }

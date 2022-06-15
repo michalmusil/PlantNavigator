@@ -4,6 +4,7 @@ namespace PlantNavigator.API.Models.DTOs.FertilizingHabit
 {
     public class FertilizingHabitGetDto
     {
+        public int Id { get; set; }
         public int DaysFrequency { get; set; }
         public string? Description { get; set; }
         public Month? TimeFrom { get; set; }

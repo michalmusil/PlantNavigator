@@ -4,6 +4,7 @@ namespace PlantNavigator.API.Models.DTOs.WateringHabit
 {
     public class WateringHabitGetDto
     {
+        public int Id { get; set; }
         public int DaysFrequency { get; set; }
         public string? Description { get; set; }
         public Month? TimeFrom { get; set; }
