@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PlantNavigator.API.DbContexts;
 using PlantNavigator.API.Entities;
+using PlantNavigator.API.Entities.Enums;
 using PlantNavigator.API.Repositories.Interfaces;
 
 namespace PlantNavigator.API.Repositories
@@ -14,7 +15,7 @@ namespace PlantNavigator.API.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<LightCondition>> GetAll(string? name = null, int? lightIntensity = null)
+        public async Task<IEnumerable<LightCondition>> GetAll(string? name = null, SunlightIntensity? lightIntensity = null)
         {
             var all = dbContext.Set<LightCondition>().AsNoTracking();
 
@@ -25,7 +26,7 @@ namespace PlantNavigator.API.Repositories
 
             if (lightIntensity != null)
             {
-                all = all.Where(p => ((int)p.Intensity) == lightIntensity);
+                all = all.Where(p => p.Intensity == lightIntensity);
             }
 
             return await all.ToListAsync();
@@ -49,6 +50,12 @@ namespace PlantNavigator.API.Repositories
 
         public async Task<bool> DeleteLightCondition(LightCondition lightCondition)
         {
+            var plants = await dbContext.Plants.Where(p => p.LightConditionId == lightCondition.Id).ToListAsync();
+            foreach (var plant in plants)
+            {
+                plant.LightCondition = null;
+            }
+            await dbContext.SaveChangesAsync();
             dbContext.Remove(lightCondition);
             return await dbContext.SaveChangesAsync() > 0;
         }
