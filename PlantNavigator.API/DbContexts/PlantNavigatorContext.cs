@@ -7,6 +7,7 @@ namespace PlantNavigator.API.DbContexts
     public class PlantNavigatorContext : DbContext
     {
         public DbSet<Plant> Plants { get; set; } = null!;
+        public DbSet<PlantImage> PlantImages { get; set; } = null!;
         public DbSet<WaterCondition> WaterConditions { get; set; } = null!;
         public DbSet<LightCondition> LightConditions { get; set; } = null!;
         public DbSet<Soil> Soils { get; set; } = null!;
