@@ -40,6 +40,7 @@ builder.Services.AddScoped<IFertilizerTypesRepository, FertilizerTypesRepository
 builder.Services.AddScoped<IDiseasesRepository, DiseasesRepository>();
 builder.Services.AddScoped<ILightConditionsRepository, LightConditionsRepository>();
 builder.Services.AddScoped<IWaterConditionsRepository, WaterConditionsRepository>();
+builder.Services.AddScoped<IPlantImagesRepository, PlantImagesRepository>();
 
 
 
