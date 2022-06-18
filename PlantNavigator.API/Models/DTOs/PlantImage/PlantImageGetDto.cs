@@ -2,7 +2,8 @@
 {
     public class PlantImageGetDto
     {
+        public int Id { get; set; }
         public int PlantId { get; set; }
-        public string path { get; set; }
+        public string ImageName { get; set; }
     }
 }

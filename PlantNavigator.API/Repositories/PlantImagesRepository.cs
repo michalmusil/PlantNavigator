@@ -31,6 +31,11 @@ namespace PlantNavigator.API.Repositories
             return await dbContext.PlantImages.Where(i => i.Id == id).FirstOrDefaultAsync();
         }
 
+        public async Task<PlantImage> GetByImageName(string imageName)
+        {
+            return await dbContext.PlantImages.Where(i => i.ImageName == imageName).FirstOrDefaultAsync();
+        }
+
         public async Task<bool> AddPlantImage(PlantImage plantImage)
         {
             dbContext.PlantImages.Add(plantImage);
@@ -41,6 +46,14 @@ namespace PlantNavigator.API.Repositories
         {
             dbContext.Remove(plantImage);
             return await dbContext.SaveChangesAsync() > 0;
+        }
+
+
+
+
+        public async Task<bool> PlantExists(int id)
+        {
+            return await dbContext.Plants.AnyAsync(c => c.Id == id);
         }
     }
 }

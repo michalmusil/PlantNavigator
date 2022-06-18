@@ -12,6 +12,6 @@ namespace PlantNavigator.API.Entities
         public int PlantId { get; set; }
 
         [Required]
-        public string path { get; set; }
+        public string ImageName { get; set; }
     }
 }
