@@ -125,6 +125,11 @@ namespace PlantNavigator.API.Controllers
                 return NotFound();
             }
 
+            if (await diseasesRepository.GetPlantDiseaseById(joining.PlantId, joining.DiseaseId) != null)
+            {
+                return BadRequest("This connection already exists");
+            }
+
             try
             {
                 var joinToAdd = mapper.Map<Plant_Disease>(joining);

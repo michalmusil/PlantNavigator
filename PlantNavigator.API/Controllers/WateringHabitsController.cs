@@ -124,6 +124,11 @@ namespace PlantNavigator.API.Controllers
                 return NotFound();
             }
 
+            if (await wateringHabitsRepository.GetPlantWateringHabitById(joining.PlantId, joining.WateringHabitId) != null)
+            {
+                return BadRequest("This connection already exists");
+            }
+
             try
             {
                 var joinToAdd = mapper.Map<Plant_WateringHabit>(joining);

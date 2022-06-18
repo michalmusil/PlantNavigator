@@ -125,6 +125,11 @@ namespace PlantNavigator.API.Controllers
                 return NotFound();
             }
 
+            if (await soilsRepository.GetPlantSoilById(joining.PlantId, joining.SoilId) != null)
+            {
+                return BadRequest("This connection already exists");
+            }
+
             try
             {
                 var joinToAdd = mapper.Map<Plant_Soil>(joining);
