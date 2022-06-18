@@ -104,7 +104,11 @@ namespace PlantNavigator.API.Controllers
                         await plantImagesRepository.AddPlantImage(newPlantImage);
 
                         fs.Close();
-                        return Ok();
+                        return CreatedAtRoute("GetPlantImageByImageName",
+                        new
+                        {
+                            imageName = fileName
+                        }, mapper.Map<PlantImageGetDto>(newPlantImage));
                     }
                 }
                 else
@@ -116,6 +120,28 @@ namespace PlantNavigator.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpDelete("{imageName}", Name = "DeletePlantImageByImageName")]
+        public async Task<ActionResult> DeletePlantImageByImageName(string imageName)
+        {
+            var dbImage = await plantImagesRepository.GetByImageName(imageName);
+
+            if (dbImage == null)
+            {
+                return NotFound();
+            }
+
+            await plantImagesRepository.DeletePlantImage(dbImage);
+
+            string fullImagePath = environment.ContentRootPath + relativePath + dbImage.ImageName;
+
+            if (System.IO.File.Exists(fullImagePath))
+            {
+                System.IO.File.Delete(fullImagePath);
+            }
+
+            return NoContent();
         }
 
     }
