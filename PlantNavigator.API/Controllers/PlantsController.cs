@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PlantNavigator.API.Entities;
 using PlantNavigator.API.Models.DTOs.Plant;
 using PlantNavigator.API.Repositories.Interfaces;
 
@@ -28,11 +29,87 @@ namespace PlantNavigator.API.Controllers
 
 
         [HttpGet(Name = "GetPlants")]
-        public async Task<ActionResult<IEnumerable<PlantGetDto>>> GetPlants()
+        public async Task<ActionResult<IEnumerable<PlantGetDto>>> GetPlants(string? plantName, int? classificationId, int? soilId, int? pestId, int? diseaseId,
+            int? lightConditionId, int? waterConditionId, int? wateringHabitId, int? fertilizingHabitId)
         {
-            var plants = await plantsRepository.GetAll();
+            var plants = await plantsRepository.GetAll(plantName, classificationId, soilId, pestId, diseaseId, lightConditionId,
+                waterConditionId, wateringHabitId, fertilizingHabitId);
             return Ok(mapper.Map<IEnumerable<PlantGetDto>>(plants));
         }
+
+        [HttpGet("{id}", Name = "GetPlantById")]
+        public async Task<ActionResult<PlantGetDto>> GetPlantById(int id)
+        {
+            var plant = await plantsRepository.GetById(id);
+
+            if (plant == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(mapper.Map<PlantGetDto>(plant));
+        }
+
+        [HttpPost(Name = "PostPlant")]
+        public async Task<ActionResult> PostPlant(PlantPostDto plant)
+        {
+            if(!await plantsRepository.WateringConditionExists(plant.WaterConditionId))
+            {
+                return NotFound();
+            }
+
+            if (!await plantsRepository.LightConditionExists(plant.LightConditionId))
+            {
+                return NotFound();
+            }
+
+            Plant plantToAdd = null;
+
+            try
+            {
+                plantToAdd = mapper.Map<Plant>(plant);
+            }
+            catch (Exception ex)
+            {
+                logger.LogInformation($"User Plant post not successfull: {ex.ToString}");
+                return BadRequest();
+            }
+
+            await plantsRepository.AddPlant(plantToAdd);
+
+            return CreatedAtRoute("GetPlantById",
+                new
+                {
+                    id = plantToAdd.Id
+                }, mapper.Map<PlantGetDto>(plantToAdd));
+        }
+
+        [HttpPut("{id}", Name = "UpdatePlant")]
+        public async Task<ActionResult> UpdatePlant(int id, PlantPutDto plant)
+        {
+            if (!await plantsRepository.WateringConditionExists(plant.WaterConditionId))
+            {
+                return NotFound();
+            }
+
+            if (!await plantsRepository.LightConditionExists(plant.LightConditionId))
+            {
+                return NotFound();
+            }
+
+            var foundPlant = await plantsRepository.GetById(id);
+
+            if (foundPlant == null)
+            {
+                return NotFound();
+            }
+
+            mapper.Map(plant, foundPlant);
+            plantsRepository.UpdatePlant(foundPlant);
+
+            return NoContent();
+        }
+
 
         [HttpDelete("{id}", Name = "DeletePlantById")]
         public async Task<ActionResult> DeletePlantById(int id)

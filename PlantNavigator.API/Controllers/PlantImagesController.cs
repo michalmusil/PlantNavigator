@@ -73,11 +73,6 @@ namespace PlantNavigator.API.Controllers
         [HttpPost(Name = "PostPlantImage")]
         public async Task<ActionResult> PostPlantImage(int plantId, IFormFile image)
         {
-            if (image == null)
-            {
-                return BadRequest("You must input image");
-            }
-
             if (!await plantImagesRepository.PlantExists(plantId))
             {
                 return NotFound("Plant with this id does not exist");

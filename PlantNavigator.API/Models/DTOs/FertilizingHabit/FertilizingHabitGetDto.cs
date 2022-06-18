@@ -1,4 +1,5 @@
 ﻿using PlantNavigator.API.Entities.Enums;
+using PlantNavigator.API.Models.DTOs.FertilizerType;
 
 namespace PlantNavigator.API.Models.DTOs.FertilizingHabit
 {
