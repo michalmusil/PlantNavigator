@@ -9,6 +9,7 @@ namespace PlantNavigator.API.AutoMapperProfiles
         public PlantProfile()
         {
             CreateMap<Plant, PlantGetDto>();
+            CreateMap<Plant, PlantGetExtendedDto>();
             CreateMap<PlantPostDto, Plant>();
             CreateMap<PlantPutDto, Plant>();
         }

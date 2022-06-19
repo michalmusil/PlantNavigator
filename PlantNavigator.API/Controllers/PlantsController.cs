@@ -1,7 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PlantNavigator.API.Entities;
+using PlantNavigator.API.Models.DTOs.Disease;
+using PlantNavigator.API.Models.DTOs.FertilizingHabit;
+using PlantNavigator.API.Models.DTOs.Pest;
 using PlantNavigator.API.Models.DTOs.Plant;
+using PlantNavigator.API.Models.DTOs.PlantImage;
+using PlantNavigator.API.Models.DTOs.Soil;
+using PlantNavigator.API.Models.DTOs.WateringHabit;
 using PlantNavigator.API.Repositories.Interfaces;
 
 namespace PlantNavigator.API.Controllers
@@ -48,6 +54,35 @@ namespace PlantNavigator.API.Controllers
             }
 
             return Ok(mapper.Map<PlantGetDto>(plant));
+        }
+
+        [HttpGet("extended/{id}", Name = "GetPlantExtendedById")]
+        public async Task<ActionResult<PlantGetDto>> GetPlantExtendedById(int id)
+        {
+            var plant = await plantsRepository.GetById(id);
+
+            if (plant == null)
+            {
+                return NotFound();
+            }
+
+            var returnedPlant = mapper.Map<PlantGetExtendedDto>(plant);
+
+            var plantDiseases = await plantsRepository.GetPlantsDiseases(id);
+            var plantSoils = await plantsRepository.GetPlantsSoils(id);
+            var plantPests = await plantsRepository.GetPlantsPests(id);
+            var plantWateringHabits = await plantsRepository.GetPlantsWateringHabits(id);
+            var plantFertilizingHabits = await plantsRepository.GetPlantsFertilizingHabits(id);
+            var plantImages = await plantsRepository.GetPlantsImages(id);
+
+            returnedPlant.Diseases = mapper.Map<List<DiseaseGetDto>>(plantDiseases);
+            returnedPlant.Soils = mapper.Map<List<SoilGetDto>>(plantSoils);
+            returnedPlant.Pests = mapper.Map<List<PestGetDto>>(plantPests);
+            returnedPlant.WateringHabits = mapper.Map<List<WateringHabitGetDto>>(plantWateringHabits);
+            returnedPlant.FertilizingHabits = mapper.Map<List<FertilizingHabitGetDto>>(plantFertilizingHabits);
+            returnedPlant.PlantImages = mapper.Map<List<PlantImageGetDto>>(plantImages);
+
+            return Ok(returnedPlant);
         }
 
         [HttpPost(Name = "PostPlant")]

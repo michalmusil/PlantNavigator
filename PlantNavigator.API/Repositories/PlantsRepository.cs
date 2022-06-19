@@ -111,5 +111,36 @@ namespace PlantNavigator.API.Repositories
         {
             return await dbContext.WaterConditions.AnyAsync(c => c.Id == id);
         }
+
+
+        public async Task<IEnumerable<Disease>> GetPlantsDiseases(int plantId)
+        {
+            return await dbContext.Diseases.Where(d => d.Plant_Diseases.Any(x => x.PlantId == plantId)).AsNoTracking().ToListAsync();
+        }
+
+        public async Task<IEnumerable<Soil>> GetPlantsSoils(int plantId)
+        {
+            return await dbContext.Soils.Where(s => s.Plant_Soils.Any(x => x.PlantId == plantId)).AsNoTracking().ToListAsync();
+        }
+
+        public async Task<IEnumerable<Pest>> GetPlantsPests(int plantId)
+        {
+            return await dbContext.Pests.Where(p => p.Plant_Pests.Any(x => x.PlantId == plantId)).AsNoTracking().ToListAsync();
+        }
+
+        public async Task<IEnumerable<WateringHabit>> GetPlantsWateringHabits(int plantId)
+        {
+            return await dbContext.WateringHabits.Where(w => w.Plant_WateringHabits.Any(x => x.PlantId == plantId)).AsNoTracking().ToListAsync();
+        }
+
+        public async Task<IEnumerable<FertilizingHabit>> GetPlantsFertilizingHabits(int plantId)
+        {
+            return await dbContext.FertilizingHabits.Where(d => d.Plant_FertilizingHabits.Any(x => x.PlantId == plantId)).AsNoTracking().ToListAsync();
+        }
+
+        public async Task<IEnumerable<PlantImage>> GetPlantsImages(int plantId)
+        {
+            return await dbContext.PlantImages.Where(d => d.PlantId == plantId).AsNoTracking().ToListAsync();
+        }
     }
 }

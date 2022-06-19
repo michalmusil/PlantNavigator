@@ -23,5 +23,17 @@ namespace PlantNavigator.API.Repositories.Interfaces
 
         public Task<bool> LightConditionExists(int? id);
 
+        public Task<IEnumerable<Disease>> GetPlantsDiseases(int plantId);
+
+        public Task<IEnumerable<Soil>> GetPlantsSoils(int plantId);
+
+        public Task<IEnumerable<Pest>> GetPlantsPests(int plantId);
+
+        public Task<IEnumerable<WateringHabit>> GetPlantsWateringHabits(int plantId);
+
+        public Task<IEnumerable<FertilizingHabit>> GetPlantsFertilizingHabits(int plantId);
+
+        public Task<IEnumerable<PlantImage>> GetPlantsImages(int plantId);
+
     }
 }
