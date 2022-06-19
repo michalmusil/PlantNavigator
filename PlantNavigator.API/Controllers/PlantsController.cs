@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PlantNavigator.API.Entities;
+using PlantNavigator.API.Models.DTOs.Classification;
 using PlantNavigator.API.Models.DTOs.Disease;
 using PlantNavigator.API.Models.DTOs.FertilizingHabit;
 using PlantNavigator.API.Models.DTOs.Pest;
@@ -68,6 +69,7 @@ namespace PlantNavigator.API.Controllers
 
             var returnedPlant = mapper.Map<PlantGetExtendedDto>(plant);
 
+            var plantsClassifications = await plantsRepository.GetPlantsClassifications(id);
             var plantDiseases = await plantsRepository.GetPlantsDiseases(id);
             var plantSoils = await plantsRepository.GetPlantsSoils(id);
             var plantPests = await plantsRepository.GetPlantsPests(id);
@@ -75,6 +77,7 @@ namespace PlantNavigator.API.Controllers
             var plantFertilizingHabits = await plantsRepository.GetPlantsFertilizingHabits(id);
             var plantImages = await plantsRepository.GetPlantsImages(id);
 
+            returnedPlant.Classifications = mapper.Map<List<ClassificationGetDto>>(plantsClassifications);
             returnedPlant.Diseases = mapper.Map<List<DiseaseGetDto>>(plantDiseases);
             returnedPlant.Soils = mapper.Map<List<SoilGetDto>>(plantSoils);
             returnedPlant.Pests = mapper.Map<List<PestGetDto>>(plantPests);

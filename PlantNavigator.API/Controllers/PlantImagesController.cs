@@ -33,7 +33,7 @@ namespace PlantNavigator.API.Controllers
             this.environment = environment ??
                 throw new ArgumentNullException(nameof(environment));
 
-            this.allowedExtensions = new string[] { ".jped", ".jpg", ".png" };
+            this.allowedExtensions = new string[] { ".jpeg", ".jpg", ".png" };
 
             this.relativePath = "\\Images\\";
         }

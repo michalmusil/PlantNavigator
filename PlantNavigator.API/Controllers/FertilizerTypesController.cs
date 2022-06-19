@@ -124,6 +124,11 @@ namespace PlantNavigator.API.Controllers
                 return NotFound();
             }
 
+            if (await fertilizerTypesRepository.GetFertilizingHabitFertilizerTypeById(joining.FertilizingHabitId, joining.FertilizerTypeId) != null)
+            {
+                return BadRequest("This connection already exists");
+            }
+
             try
             {
                 var joinToAdd = mapper.Map<FertilizingHabit_FertilizerType>(joining);

@@ -109,9 +109,16 @@ namespace PlantNavigator.API.Repositories
 
         public async Task<bool> LightConditionExists(int? id)
         {
-            return await dbContext.WaterConditions.AnyAsync(c => c.Id == id);
+            return await dbContext.LightConditions.AnyAsync(c => c.Id == id);
         }
+        
 
+
+
+        public async Task<IEnumerable<Classification>> GetPlantsClassifications(int plantId)
+        {
+            return await dbContext.Classifications.Where(d => d.Plant_Classifications.Any(x => x.PlantId == plantId)).AsNoTracking().ToListAsync();
+        }
 
         public async Task<IEnumerable<Disease>> GetPlantsDiseases(int plantId)
         {

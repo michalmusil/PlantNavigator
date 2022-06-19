@@ -1,4 +1,5 @@
 ﻿using PlantNavigator.API.Entities.Enums;
+using PlantNavigator.API.Models.DTOs.Classification;
 using PlantNavigator.API.Models.DTOs.Disease;
 using PlantNavigator.API.Models.DTOs.FertilizingHabit;
 using PlantNavigator.API.Models.DTOs.LightCondition;
@@ -24,6 +25,7 @@ namespace PlantNavigator.API.Models.DTOs.Plant
         public WaterConditionGetDto? WaterCondition { get; set; }
         public LightConditionGetDto? LightCondition { get; set; }
 
+        public List<ClassificationGetDto> Classifications { get; set; }
         public List<DiseaseGetDto> Diseases { get; set; }
         public List<SoilGetDto> Soils { get; set; }
         public List<PestGetDto> Pests { get; set; }

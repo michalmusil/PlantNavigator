@@ -23,6 +23,10 @@ namespace PlantNavigator.API.Repositories.Interfaces
 
         public Task<bool> LightConditionExists(int? id);
 
+
+
+        public Task<IEnumerable<Classification>> GetPlantsClassifications(int plantId);
+
         public Task<IEnumerable<Disease>> GetPlantsDiseases(int plantId);
 
         public Task<IEnumerable<Soil>> GetPlantsSoils(int plantId);
